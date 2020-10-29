@@ -1,5 +1,5 @@
 import socketIO from 'socket.io';
-import * as Model from '../../models';
+import * as Model from '../../models/users';
 import { socketHandler } from '../../middlewares/error-handler';
 
 const StartSocketServer = (server) => {
@@ -9,4 +9,4 @@ const StartSocketServer = (server) => {
       await Model.heterminado(msg.alumnoId);
       io.emit('alguienTermino', msg);
   }));    
-}
+})};

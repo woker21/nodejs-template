@@ -7,7 +7,7 @@ const Documentation = (app) => {
   const swaggerSpec = swaggerJSDoc(swaggerConfig);
 
   // Api entrypoint
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
 
 export default Documentation;

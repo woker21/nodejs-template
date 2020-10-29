@@ -1,0 +1,45 @@
+paths:
+  /auth/login:
+    post:
+      description: Login endpoint
+      requestBody:
+        description: User credentials (email, password)
+        content:
+          application/json:
+            examples:
+              Credentials exmaple:
+                value:
+                  mail: pp@pp.com
+                  pass: pp
+            schema:
+              type: object
+              properties:
+                mail:
+                  type: string
+                pass:
+                  type: string
+      tags:
+        - Public
+      responses:
+        200:
+          description: Ok
+
+/auth/register:
+  post:
+    description: Restricted path
+    requestBody:
+        description: Register a new user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mail:
+                  type: string
+                pass:
+                  type: string
+    tags:
+      - Public
+    responses:
+      200:
+        description: Ok

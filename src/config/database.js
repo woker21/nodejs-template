@@ -1,7 +1,7 @@
 export default {
-    host: 'server.com',
-    user: 'user',
-    password: 'pass',
-    database: 'database_name',
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'amor',
     connectionLimit : 10,
 };

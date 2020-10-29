@@ -2,6 +2,7 @@
 la ejecuta (resolve)
 y si  hay algún error, lo mostrará por consola y lanzará un 500
 */
+
 export const asyncHandler = controller => (req, res, next) => Promise
   .resolve(controller(req, res, next))
   .catch((err) => {

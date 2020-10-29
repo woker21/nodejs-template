@@ -3,6 +3,7 @@ import http from 'http';
 import Middlewares from './middlewares';
 import Controllers from './controllers';
 import Documentation from './documentation';
+import ConnectDatabase from './database';
 
 const app = express();
 /*
@@ -14,7 +15,8 @@ const port = process.env.PORT || 3005;
 Documentation(app);
 Middlewares(app);
 Controllers(app);
+ConnectDatabase(() => {
+    const server = http.createServer(app);
+    server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));
+});
 
-const server = http.createServer(app);
-
-server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));

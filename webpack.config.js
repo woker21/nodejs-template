@@ -32,6 +32,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@Middlwares': path.resolve(__dirname, './src/middlewares'),
+      '@Utils': path.resolve(__dirname, './src/utils'),
+      '@Models': path.resolve(__dirname, './src/models'),
+    }
   },
   devServer: {
     port: 3005,

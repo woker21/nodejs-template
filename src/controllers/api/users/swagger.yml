@@ -1,0 +1,51 @@
+paths:
+  /users:
+    get:
+      description: Test request
+      tags:
+        - Public
+      responses:
+        200:
+          description: Ok
+
+  /users/restricted-path:
+    get:
+      description: Restricted path
+      tags:
+        - Users
+      responses:
+        200:
+          description: Ok
+  
+  /users/{id}:
+    delete:
+      description: Delete user by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+      tags:
+        - Users
+      responses:
+        200:
+          description: Ok
+
+    patch:
+      description: Delete user by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+      requestBody:
+        description: User data
+        content:
+          application/json:
+            schema:
+              type: object
+      tags:
+        - Users
+      responses:
+        200:
+          description: Ok
+
+    
