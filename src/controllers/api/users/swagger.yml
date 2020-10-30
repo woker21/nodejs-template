@@ -21,9 +21,9 @@ paths:
               type: object
               properties:
                 mail:
-                  type: string
+                  type: pp@pp.com
                 pass:
-                  type: string
+                  type: 123
       responses:
         200:
           description: Ok
