@@ -22,12 +22,5 @@ router.post("/login", asyncHandler(async (req, res) => {
   })
 );
 
-router.post("/register", asyncHandler(async (req, res) => {
-  const mail = req.body.mail;
-  const pass = req.body.pass;
-  await UsersModel.createUser(mail, pass)
-  res.send('Usuario creado con éxito');
-}));
-
 
 export default router;

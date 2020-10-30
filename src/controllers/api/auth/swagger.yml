@@ -23,23 +23,3 @@ paths:
       responses:
         200:
           description: Ok
-
-/auth/register:
-  post:
-    description: Restricted path
-    requestBody:
-        description: Register a new user
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                mail:
-                  type: string
-                pass:
-                  type: string
-    tags:
-      - Public
-    responses:
-      200:
-        description: Ok

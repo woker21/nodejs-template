@@ -1,13 +1,4 @@
 paths:
-  /users:
-    get:
-      description: Test request
-      tags:
-        - Public
-      responses:
-        200:
-          description: Ok
-
   /users/restricted-path:
     get:
       description: Restricted path
@@ -16,7 +7,29 @@ paths:
       responses:
         200:
           description: Ok
-  
+
+  /users/create:
+    post:
+      description: Create a new user
+      tags:
+        - Users
+    requestBody:
+      description: User data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              mail:
+                type: string
+              pass:
+                type: string
+    tags:
+      - Public
+    responses:
+      200:
+        description: Ok
+
   /users/{id}:
     delete:
       description: Delete user by id
@@ -47,5 +60,3 @@ paths:
       responses:
         200:
           description: Ok
-
-    

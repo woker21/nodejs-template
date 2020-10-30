@@ -5,12 +5,15 @@ import restrictedAccess from "@Middlwares/restricted-access";
 
 const router = express.Router();
 
-router.get("/", asyncHandler(async (req, res) => {
-  res.send("va bien la cosaa"); 
-}));
-
 router.get("/restricted-path", restrictedAccess, asyncHandler(async(req, res) => {
   res.send(`User id: ${req.userId}`);
+}));
+
+router.post("/create", asyncHandler(async (req, res) => {
+  const mail = req.body.mail;
+  const pass = req.body.pass;
+  await UsersModel.createUser(mail, pass)
+  res.send('Usuario creado con éxito');
 }));
 
 router.delete("/:id", restrictedAccess,asyncHandler( async (req, res) => {
