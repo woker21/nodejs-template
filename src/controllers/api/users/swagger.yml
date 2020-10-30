@@ -24,11 +24,9 @@ paths:
                   type: string
                 pass:
                   type: string
-    tags:
-      - Public
-    responses:
-      200:
-        description: Ok
+      responses:
+        200:
+          description: Ok
 
   /users/{id}:
     delete:
