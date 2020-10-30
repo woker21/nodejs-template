@@ -8,11 +8,6 @@ paths:
         description: User credentials (email, password)
         content:
           application/json:
-            examples:
-              Credentials exmaple:
-                value:
-                  mail: pp@pp.com
-                  pass: pp
             schema:
               type: object
               properties:
@@ -20,6 +15,11 @@ paths:
                   type: string
                 pass:
                   type: string
+            examples:
+              Credentials exmaple:
+                value:
+                  mail: pp@pp.com
+                  pass: pp
       responses:
         200:
           description: Ok
