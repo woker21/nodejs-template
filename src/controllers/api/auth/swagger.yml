@@ -2,6 +2,8 @@ paths:
   /auth/login:
     post:
       description: Login endpoint
+      tags:
+        - Public
       requestBody:
         description: User credentials (email, password)
         content:
@@ -18,8 +20,6 @@ paths:
                   type: string
                 pass:
                   type: string
-      tags:
-        - Public
       responses:
         200:
           description: Ok
