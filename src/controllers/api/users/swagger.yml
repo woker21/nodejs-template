@@ -28,7 +28,7 @@ paths:
               Credentials exmaple:
                 value:
                   mail: pp@pp.com
-                  pass: pp
+                  pass: 123
       responses:
         200:
           description: Ok

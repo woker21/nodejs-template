@@ -220,33 +220,6 @@ router.post("/login", Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_
     return _ref.apply(this, arguments);
   };
 }()));
-router.post("/register", Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_5__["asyncHandler"])( /*#__PURE__*/function () {
-  var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(req, res) {
-    var mail, pass;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            mail = req.body.mail;
-            pass = req.body.pass;
-            _context2.next = 4;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__["createUser"](mail, pass);
-
-          case 4:
-            res.send('Usuario creado con éxito');
-
-          case 5:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-}()));
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -269,6 +242,9 @@ __webpack_require__.r(__webpack_exports__);
   app.use('/auth', _auth__WEBPACK_IMPORTED_MODULE_1__["default"]); // Private
 
   app.use('/users', _users__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  app.use('/', function (req, res) {
+    return res.send("Working like a charm \u0669(^\u203F^)\u06F6");
+  });
 });
 
 /***/ }),
@@ -298,13 +274,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var router = express__WEBPACK_IMPORTED_MODULE_2___default.a.Router();
-router.get("/", Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__["asyncHandler"])( /*#__PURE__*/function () {
+router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__["default"], Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__["asyncHandler"])( /*#__PURE__*/function () {
   var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(req, res) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            res.send("va bien la cosaa");
+            res.send("User id: ".concat(req.userId));
 
           case 1:
           case "end":
@@ -318,15 +294,22 @@ router.get("/", Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__["a
     return _ref.apply(this, arguments);
   };
 }()));
-router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__["default"], Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__["asyncHandler"])( /*#__PURE__*/function () {
+router.post("/create", Object(_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__["asyncHandler"])( /*#__PURE__*/function () {
   var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(req, res) {
+    var mail, pass;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            res.send("User id: ".concat(req.userId));
+            mail = req.body.mail;
+            pass = req.body.pass;
+            _context2.next = 4;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__["createUser"](mail, pass);
 
-          case 1:
+          case 4:
+            res.send('Usuario creado con éxito');
+
+          case 5:
           case "end":
             return _context2.stop();
         }
@@ -682,9 +665,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserByEmailAndPassword", function() { return getUserByEmailAndPassword; });
 /* harmony import */ var _schema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schema */ "./src/models/users/schema.js");
 
-var createUser = function createUser(username, password) {
+var createUser = function createUser(mail, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__["default"].create({
-    username: username,
+    mail: mail,
     password: password
   });
 };
@@ -702,10 +685,10 @@ var deleteUser = function deleteUser(id) {
     }
   });
 };
-var getUserByEmailAndPassword = function getUserByEmailAndPassword(username, password) {
+var getUserByEmailAndPassword = function getUserByEmailAndPassword(mail, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__["default"].findOne({
     where: {
-      username: username,
+      mail: mail,
       password: password
     }
   });
@@ -730,7 +713,7 @@ var _require = __webpack_require__(/*! sequelize */ "sequelize"),
 
 var User = _database__WEBPACK_IMPORTED_MODULE_0__["db"].define('user', {
   password: DataTypes.STRING,
-  username: DataTypes.STRING
+  mail: DataTypes.STRING
 });
 /* harmony default export */ __webpack_exports__["default"] = (User);
 

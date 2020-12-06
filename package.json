@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start-local": "npm-run-all --parallel watch:build watch:server",
-    "heroku": "npm run build && git add . && git commit -m 'subida' && git push heroku master",
-    "start": "node ./build/bundle.js",
+    "deploy-in-heroku": "npm run build && git add . && git commit -m 'subida' && git push heroku master",
     "build": "cross-env NODE_ENV=production webpack",
     "watch:server": "nodemon \"./build/bundle.js\" --watch \"./build\"",
-    "watch:build": "cross-env NODE_ENV=development webpack --watch"
+    "watch:build": "cross-env NODE_ENV=development webpack --watch",
+    "start": "node ./build/bundle.js"
   },
   "author": "Pablo Monteserín",
   "license": "ISC",
