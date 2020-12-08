@@ -5,7 +5,6 @@ export default function (app) {
   // Public
   app.use('/auth', AuthController);
 
-
   // Private
   app.use('/users', UsersController);
 

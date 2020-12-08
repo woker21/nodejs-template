@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import Middlewares from './middlewares';
-import Controllers from './controllers';
+import ApiControllers from './controllers/api';
 import Documentation from './documentation';
 import ConnectDatabase from './database';
 
@@ -10,11 +10,11 @@ const app = express();
 Heroku utiliza la variable de entorno process.env.port para asignar el puerto donde se va ejecutar el servidor,
 por eso la hemos definido en esta plantilla
 */
-const port = process.env.PORT || 3005;
+const port = process.env.PORT;
 
 Documentation(app);
 Middlewares(app);
-Controllers(app);
+ApiControllers(app);
 ConnectDatabase(() => {
     const server = http.createServer(app);
     server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));

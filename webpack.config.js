@@ -1,6 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals');
-const TerserPlugin = require('terser-webpack-plugin');
 
 const development = process.env.NODE_ENV === 'development';
 
@@ -8,6 +8,12 @@ const development = process.env.NODE_ENV === 'development';
 const paths = {
   OUTPUT: path.resolve(__dirname, 'build'),
 };
+
+const processEnvPlugin = new webpack.DefinePlugin({
+  'process.env': {
+    PORT: process.env.PORT || 3006,
+  },
+});
 
 module.exports = {
   entry: {
@@ -38,24 +44,8 @@ module.exports = {
       '@Models': path.resolve(__dirname, './src/models'),
     }
   },
-  devServer: {
-    port: 3005,
-  },
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        sourceMap: development,
-        cache: true,
-        parallel: true,
-        terserOptions: {
-          compress: true,
-          ecma: 6,
-          mangle: true,
-        },
-      }),
-    ],
-  },
   externals: [webpackNodeExternals()],
   mode: process.env.NODE_ENV,
   devtool: development && 'source-map',
+  plugins: [processEnvPlugin],
 };

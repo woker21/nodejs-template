@@ -5,7 +5,7 @@ import restrictedAccess from "@Middlwares/restricted-access";
 
 const router = express.Router();
 
-router.get("/restricted-path", restrictedAccess, asyncHandler(async(req, res) => {
+router.get("/restricted-path", restrictedAccess, asyncHandler(async (req, res) => {
   res.send(`User id: ${req.userId}`);
 }));
 
@@ -16,7 +16,7 @@ router.post("/create", asyncHandler(async (req, res) => {
   res.send('Usuario creado con éxito');
 }));
 
-router.delete("/:id", restrictedAccess,asyncHandler( async (req, res) => {
+router.delete("/:id", restrictedAccess, asyncHandler(async (req, res) => {
   const { params: { id } } = req;
   await UsersModel.deleteUser(id);
   res.send(`User id: ${id} deleted`);
@@ -27,6 +27,5 @@ router.patch("/:id", restrictedAccess, async (req, res) => {
   await UsersModel.updateUser(id, body);
   res.send(`User id: ${id} updated`);
 });
-
 
 export default router;
