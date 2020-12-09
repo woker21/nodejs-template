@@ -9,7 +9,7 @@ router.post("/login", asyncHandler(async (req, res) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
   if (!mail || !pass) return res.send(400);
-  const user = await UsersModel.getUserByEmailAndPassword(mail, pass);
+  const user = await UsersModel.getByEmailAndPassword(mail, pass);
 
   if (!user) {
     return res.sendStatus(403);
