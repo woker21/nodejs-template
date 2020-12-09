@@ -1,17 +1,25 @@
-import UserSchema from './schema';
+import Schema from './schema';
 
-export const createUser = (mail, password) => UserSchema.create({
+export const create = (mail, password) => Schema.create({
     mail,
     password,
 });
 
-export const updateUser = (id, data) => UserSchema.update(data, { where: { id }});
+export const update = (id, data) => Schema.update(data, { where: { id } });
 
-export const deleteUser = id => UserSchema.destroy({ where: { id }});
+export const remove = id => Schema.destroy({ where: { id } });
 
-export const getUserByEmailAndPassword = (mail, password) => UserSchema.findOne({
+export const getByEmailAndPassword = (mail, password) => Schema.findOne({
     where: {
         mail,
         password
     }
 });
+
+export const getById = (id) => Schema.findOne({
+    where: {
+        id
+    }
+});
+
+export const get = () => Schema.findAll();

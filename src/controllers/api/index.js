@@ -1,5 +1,4 @@
 import UsersController from './users';
-import AuthController from './auth';
 
 export default function (app) {
   // Private

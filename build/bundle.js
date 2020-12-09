@@ -63,85 +63,6 @@ var swaggerConfig = {
 
 /***/ }),
 
-/***/ "./src/controllers/api/auth/index.js":
-/*!*******************************************!*
-  !*** ./src/controllers/api/auth/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "@babel/runtime/helpers/asyncToGenerator");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! express */ "express");
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Models_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Models/users */ "./src/models/users/index.js");
-/* harmony import */ var _Utils_access__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Utils/access */ "./src/utils/access.js");
-/* harmony import */ var _Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Middlwares/error-handler */ "./src/middlewares/error-handler.js");
-
-
-
-
-
-
-var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router();
-router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_5__.asyncHandler)( /*#__PURE__*/function () {
-  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
-    var mail, pass, user, token;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            mail = req.body.mail;
-            pass = req.body.pass;
-
-            if (!(!mail || !pass)) {
-              _context.next = 4;
-              break;
-            }
-
-            return _context.abrupt("return", res.send(400));
-
-          case 4:
-            _context.next = 6;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getUserByEmailAndPassword(mail, pass);
-
-          case 6:
-            user = _context.sent;
-
-            if (user) {
-              _context.next = 9;
-              break;
-            }
-
-            return _context.abrupt("return", res.sendStatus(403));
-
-          case 9:
-            token = (0,_Utils_access__WEBPACK_IMPORTED_MODULE_4__.createToken)({
-              id: user.id
-            });
-            res.send(token);
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}()));
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
-
-/***/ }),
-
 /***/ "./src/controllers/api/index.js":
 /*!**************************************!*
   !*** ./src/controllers/api/index.js ***!
@@ -153,13 +74,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users */ "./src/controllers/api/users/index.js");
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth */ "./src/controllers/api/auth/index.js");
-
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(app) {
-  // Public
-  app.use('/auth', _auth__WEBPACK_IMPORTED_MODULE_1__.default); // Private
-
+  // Private
   app.use('/users', _users__WEBPACK_IMPORTED_MODULE_0__.default);
   app.use('/', function (req, res) {
     return res.send("Working like a charm \u0669(^\u203F^)\u06F6");
@@ -194,15 +111,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router();
-router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
+    var mail, pass, user, token;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            res.send("User id: ".concat(req.userId));
+            mail = req.body.mail;
+            pass = req.body.pass;
 
-          case 1:
+            if (!(!mail || !pass)) {
+              _context.next = 4;
+              break;
+            }
+
+            return _context.abrupt("return", res.send(400));
+
+          case 4:
+            _context.next = 6;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getUserByEmailAndPassword(mail, pass);
+
+          case 6:
+            user = _context.sent;
+
+            if (user) {
+              _context.next = 9;
+              break;
+            }
+
+            return _context.abrupt("return", res.sendStatus(403));
+
+          case 9:
+            token = createToken({
+              id: user.id
+            });
+            res.send(token);
+
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -213,21 +159,22 @@ router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_M
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}()));
-router.post("/create", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+}())); // GET ALL
+
+router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(req, res) {
-    var mail, pass;
+    var data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            mail = req.body.mail;
-            pass = req.body.pass;
-            _context2.next = 4;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.createUser(mail, pass);
+            res.send("User id: ".concat(userId));
+            _context2.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.get();
 
-          case 4:
-            res.send('Usuario creado con éxito');
+          case 3:
+            data = _context2.sent;
+            res.send(data);
 
           case 5:
           case "end":
@@ -240,22 +187,19 @@ router.post("/create", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
-}()));
-router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+}())); // GET BY ID
+
+router.get('/:id', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
-    var id;
+    var userId;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            id = req.params.id;
-            _context3.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.deleteUser(id);
+            userId = req.params.userId;
+            res.send("User id: ".concat(userId));
 
-          case 3:
-            res.send("User id: ".concat(id, " deleted"));
-
-          case 4:
+          case 2:
           case "end":
             return _context3.stop();
         }
@@ -266,22 +210,24 @@ router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_
   return function (_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
-}()));
-router.patch("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, /*#__PURE__*/function () {
+}())); //Create
+
+router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(req, res) {
-    var id, body;
+    var mail, pass;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            id = req.params.id, body = req.body;
-            _context4.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.updateUser(id, body);
-
-          case 3:
-            res.send("User id: ".concat(id, " updated"));
+            mail = req.body.mail;
+            pass = req.body.pass;
+            _context4.next = 4;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, pass);
 
           case 4:
+            res.send('Usuario creado con éxito');
+
+          case 5:
           case "end":
             return _context4.stop();
         }
@@ -292,7 +238,101 @@ router.patch("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.
   return function (_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
+}())); // DELETE
+
+router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+  var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(req, res) {
+    var id;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            id = req.params.id;
+            _context5.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.remove(id);
+
+          case 3:
+            res.send("User id: ".concat(id, " deleted"));
+
+          case 4:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
+  };
+}())); // TOTAL UPDATE
+
+router.put("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, /*#__PURE__*/function () {
+  var _ref6 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(req, res) {
+    var id, body;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            id = req.params.id, body = req.body;
+            _context6.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.update(id, body);
+
+          case 3:
+            res.send("User id: ".concat(id, " updated"));
+
+          case 4:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}()); // PARCIAL UPDATE
+
+router.patch("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, /*#__PURE__*/function () {
+  var _ref7 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(req, res) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
+  };
 }());
+router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+  var _ref8 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(req, res) {
+    var userId;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            userId = req.query.userId;
+            res.send("User id: ".concat(req.userId));
+
+          case 2:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function (_x15, _x16) {
+    return _ref8.apply(this, arguments);
+  };
+}()));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
@@ -560,40 +600,52 @@ var getHeader = function getHeader(req, header) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createUser": () => /* binding */ createUser,
-/* harmony export */   "updateUser": () => /* binding */ updateUser,
-/* harmony export */   "deleteUser": () => /* binding */ deleteUser,
-/* harmony export */   "getUserByEmailAndPassword": () => /* binding */ getUserByEmailAndPassword
+/* harmony export */   "create": () => /* binding */ create,
+/* harmony export */   "update": () => /* binding */ update,
+/* harmony export */   "remove": () => /* binding */ remove,
+/* harmony export */   "getByEmailAndPassword": () => /* binding */ getByEmailAndPassword,
+/* harmony export */   "getById": () => /* binding */ getById,
+/* harmony export */   "get": () => /* binding */ get
 /* harmony export */ });
 /* harmony import */ var _schema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schema */ "./src/models/users/schema.js");
 
-var createUser = function createUser(mail, password) {
+var create = function create(mail, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.create({
     mail: mail,
     password: password
   });
 };
-var updateUser = function updateUser(id, data) {
+var update = function update(id, data) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.update(data, {
     where: {
       id: id
     }
   });
 };
-var deleteUser = function deleteUser(id) {
+var remove = function remove(id) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.destroy({
     where: {
       id: id
     }
   });
 };
-var getUserByEmailAndPassword = function getUserByEmailAndPassword(mail, password) {
+var getByEmailAndPassword = function getByEmailAndPassword(mail, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.findOne({
     where: {
       mail: mail,
       password: password
     }
   });
+};
+var getById = function getById(id) {
+  return _schema__WEBPACK_IMPORTED_MODULE_0__.default.findOne({
+    where: {
+      id: id
+    }
+  });
+};
+var get = function get() {
+  return _schema__WEBPACK_IMPORTED_MODULE_0__.default.findAll();
 };
 
 /***/ }),
