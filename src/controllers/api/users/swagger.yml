@@ -70,7 +70,8 @@ paths:
       responses:
         200:
           description: Ok
-
+    get:
+      description: Get user by id
     patch:
       description: Delete user by id
       tags:
