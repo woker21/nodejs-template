@@ -8,22 +8,20 @@ const router = express.Router();
 router.post("/login", asyncHandler(async (req, res) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
-
   if (!mail || !pass) return res.send(400);
   const user = await UsersModel.getUserByEmailAndPassword(mail, pass);
 
   if (!user) {
     return res.sendStatus(403);
   }
-
   const token = createToken({ id: user.id });
-
   res.send(token);
 })
 );
 
 
 router.get("/restricted-path", restrictedAccess, asyncHandler(async (req, res) => {
+  const { query: { userId } } = req;
   res.send(`User id: ${req.userId}`);
 }));
 
