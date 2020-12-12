@@ -3,7 +3,6 @@ import dbConfig from '../../database';
 
 const { database, user, password, host, forceCleanDatabase } = dbConfig;
 
-
 export const db = new Sequelize(database, user, password, {
 	host,
 	dialect: 'mysql',
