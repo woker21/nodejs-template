@@ -1,9 +1,9 @@
-import { verifyToken } from '../utils/access';
+import { verifyToken } from '../../utils/access';
 export const getHeader = (req, header) => req.headers[header];
 
 export default (req, res, next) => {
   const token = getHeader(req, 'x-access-token');
-  
+
   if (!token) {
     return res.status(400).send('No token provided.');
   }

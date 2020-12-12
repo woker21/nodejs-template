@@ -1,9 +1,9 @@
 import express from 'express';
 import http from 'http';
-import Middlewares from './middlewares';
+import Middlewares from './application/middlewares';
 import ApiControllers from './controllers/api';
-import Documentation from './documentation';
-import ConnectDatabase from './database';
+import Documentation from './application/documentation';
+import ConnectDatabase from './application/database';
 
 const app = express();
 /*

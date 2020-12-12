@@ -72,6 +72,19 @@ paths:
           description: Ok
     get:
       description: Get user by id
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          examples: 
+            a:
+              value: 1
+              summary: Le pasamos un 1
+      responses:
+        200:
+          description: Ok
     patch:
       description: Delete user by id
       tags:

@@ -2,30 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/config/database.js":
-/*!********************************!*
-  !*** ./src/config/database.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'amor',
-  connectionLimit: 10
-});
-
-/***/ }),
-
-/***/ "./src/config/swagger.js":
-/*!*******************************!*
-  !*** ./src/config/swagger.js ***!
-  \*******************************/
+/***/ "./src/application/config/swagger.js":
+/*!*******************************************!*
+  !*** ./src/application/config/swagger.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -60,6 +40,224 @@ var swaggerConfig = {
   // Path to the API docs
   apis: ['./src/controllers/**/*.js', './src/controllers/**/*.yml']
 };
+
+/***/ }),
+
+/***/ "./src/application/database/index.js":
+/*!*******************************************!*
+  !*** ./src/application/database/index.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "db": () => /* binding */ db,
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "@babel/runtime/helpers/asyncToGenerator");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sequelize */ "sequelize");
+/* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sequelize__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../database */ "./src/database.js");
+
+
+
+
+var database = _database__WEBPACK_IMPORTED_MODULE_3__.default.database,
+    user = _database__WEBPACK_IMPORTED_MODULE_3__.default.user,
+    password = _database__WEBPACK_IMPORTED_MODULE_3__.default.password,
+    host = _database__WEBPACK_IMPORTED_MODULE_3__.default.host,
+    forceCleanDatabase = _database__WEBPACK_IMPORTED_MODULE_3__.default.forceCleanDatabase;
+var db = new sequelize__WEBPACK_IMPORTED_MODULE_2__.Sequelize(database, user, password, {
+  host: host,
+  dialect: 'mysql',
+  query: {
+    raw: true
+  }
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(function () {
+  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(onConnect) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return db.authenticate();
+
+          case 3:
+            db.sync({
+              force: forceCleanDatabase
+            });
+            onConnect();
+            console.log('Database connection OK!');
+            _context.next = 11;
+            break;
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            console.log('Unable to connect to the database:');
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+/***/ }),
+
+/***/ "./src/application/documentation/index.js":
+/*!************************************************!*
+  !*** ./src/application/documentation/index.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swagger-jsdoc */ "swagger-jsdoc");
+/* harmony import */ var swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var swagger_ui_express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swagger-ui-express */ "swagger-ui-express");
+/* harmony import */ var swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(swagger_ui_express__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _config_swagger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/swagger */ "./src/application/config/swagger.js");
+
+
+
+
+var Documentation = function Documentation(app) {
+  // JSON of specs
+  var swaggerSpec = swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0___default()(_config_swagger__WEBPACK_IMPORTED_MODULE_2__.swaggerConfig); // Api entrypoint
+
+  app.use("/docs", (swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default().serve), swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default().setup(swaggerSpec));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Documentation);
+
+/***/ }),
+
+/***/ "./src/application/middlewares/error-handler.js":
+/*!******************************************************!*
+  !*** ./src/application/middlewares/error-handler.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "asyncHandler": () => /* binding */ asyncHandler,
+/* harmony export */   "socketHandler": () => /* binding */ socketHandler
+/* harmony export */ });
+/*Tenemos una función que recibe como parámetro la función de cada controlador,
+la ejecuta (resolve)
+y si  hay algún error, lo mostrará por consola y lanzará un 500
+*/
+var asyncHandler = function asyncHandler(controller) {
+  return function (req, res, next) {
+    return Promise.resolve(controller(req, res, next))["catch"](function (err) {
+      console.error('Request error:' + err.toString());
+      if (err) return res.sendStatus(500).send();
+    });
+  };
+};
+var socketHandler = function socketHandler(controller) {
+  return function (msg) {
+    return Promise.resolve(controller(msg))["catch"](function (err) {
+      console.error('Socket error:' + err);
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./src/application/middlewares/index.js":
+/*!**********************************************!*
+  !*** ./src/application/middlewares/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cors */ "cors");
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! body-parser */ "body-parser");
+/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(body_parser__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Middlewares = function Middlewares(app) {
+  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().urlencoded());
+  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().json());
+  app.use(cors__WEBPACK_IMPORTED_MODULE_0___default()()); // Use this after the variable declaration
+
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+
+    if (req.method === 'OPTIONS') {
+      res.end();
+    } else {
+      next();
+    }
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Middlewares);
+
+/***/ }),
+
+/***/ "./src/application/middlewares/restricted-access.js":
+/*!**********************************************************!*
+  !*** ./src/application/middlewares/restricted-access.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getHeader": () => /* binding */ getHeader,
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _utils_access__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/access */ "./src/utils/access.js");
+
+var getHeader = function getHeader(req, header) {
+  return req.headers[header];
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (req, res, next) {
+  var token = getHeader(req, 'x-access-token');
+
+  if (!token) {
+    return res.status(400).send('No token provided.');
+  }
+
+  return (0,_utils_access__WEBPACK_IMPORTED_MODULE_0__.verifyToken)(token, function (err) {
+    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+        id = _ref.id;
+
+    if (err) {
+      return res.status(401).send('Failed to authenticate token.');
+    }
+
+    if (!id) {
+      return res.status(403).send('Wrong credentials');
+    }
+
+    req.userId = id;
+    return next();
+  });
+});
 
 /***/ }),
 
@@ -102,8 +300,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! express */ "express");
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Models_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Models/users */ "./src/models/users/index.js");
-/* harmony import */ var _Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Middlwares/error-handler */ "./src/middlewares/error-handler.js");
-/* harmony import */ var _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Middlwares/restricted-access */ "./src/middlewares/restricted-access.js");
+/* harmony import */ var _Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Middlwares/error-handler */ "./src/application/middlewares/error-handler.js");
+/* harmony import */ var _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Middlwares/restricted-access */ "./src/application/middlewares/restricted-access.js");
 
 
 
@@ -130,7 +328,7 @@ router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.
 
           case 4:
             _context.next = 6;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getUserByEmailAndPassword(mail, pass);
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getByEmailAndPassword(mail, pass);
 
           case 6:
             user = _context.sent;
@@ -168,15 +366,14 @@ router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncH
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            res.send("User id: ".concat(userId));
-            _context2.next = 3;
+            _context2.next = 2;
             return _Models_users__WEBPACK_IMPORTED_MODULE_3__.get();
 
-          case 3:
+          case 2:
             data = _context2.sent;
             res.send(data);
 
-          case 5:
+          case 4:
           case "end":
             return _context2.stop();
         }
@@ -189,17 +386,22 @@ router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncH
   };
 }())); // GET BY ID
 
-router.get('/:id', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
-    var userId;
+    var userId, data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             userId = req.params.userId;
-            res.send("User id: ".concat(userId));
+            _context3.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getById(userId);
 
-          case 2:
+          case 3:
+            data = _context3.sent;
+            res.send(data);
+
+          case 5:
           case "end":
             return _context3.stop();
         }
@@ -337,103 +539,24 @@ router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_M
 
 /***/ }),
 
-/***/ "./src/database/index.js":
-/*!*******************************!*
-  !*** ./src/database/index.js ***!
-  \*******************************/
+/***/ "./src/database.js":
+/*!*************************!*
+  !*** ./src/database.js ***!
+  \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "db": () => /* binding */ db,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "@babel/runtime/helpers/asyncToGenerator");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sequelize */ "sequelize");
-/* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sequelize__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _config_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/database */ "./src/config/database.js");
-
-
-
-
-var database = _config_database__WEBPACK_IMPORTED_MODULE_3__.default.database,
-    user = _config_database__WEBPACK_IMPORTED_MODULE_3__.default.user,
-    password = _config_database__WEBPACK_IMPORTED_MODULE_3__.default.password,
-    host = _config_database__WEBPACK_IMPORTED_MODULE_3__.default.host;
-var db = new sequelize__WEBPACK_IMPORTED_MODULE_2__.Sequelize(database, user, password, {
-  host: host,
-  dialect: 'mysql',
-  query: {
-    raw: true
-  }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'amor',
+  connectionLimit: 10,
+  forceCleanDatabase: true
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(function () {
-  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(onConnect) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return db.authenticate();
-
-          case 3:
-            db.sync();
-            onConnect();
-            console.log('Database connection OK!');
-            _context.next = 11;
-            break;
-
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](0);
-            console.log('Unable to connect to the database:');
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[0, 8]]);
-  }));
-
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-})());
-
-/***/ }),
-
-/***/ "./src/documentation/index.js":
-/*!************************************!*
-  !*** ./src/documentation/index.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swagger-jsdoc */ "swagger-jsdoc");
-/* harmony import */ var swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var swagger_ui_express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swagger-ui-express */ "swagger-ui-express");
-/* harmony import */ var swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(swagger_ui_express__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _config_swagger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/swagger */ "./src/config/swagger.js");
-
-
-
-
-var Documentation = function Documentation(app) {
-  // JSON of specs
-  var swaggerSpec = swagger_jsdoc__WEBPACK_IMPORTED_MODULE_0___default()(_config_swagger__WEBPACK_IMPORTED_MODULE_2__.swaggerConfig); // Api entrypoint
-
-  app.use("/docs", (swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default().serve), swagger_ui_express__WEBPACK_IMPORTED_MODULE_1___default().setup(swaggerSpec));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Documentation);
 
 /***/ }),
 
@@ -448,10 +571,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! http */ "http");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./middlewares */ "./src/middlewares/index.js");
+/* harmony import */ var _application_middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./application/middlewares */ "./src/application/middlewares/index.js");
 /* harmony import */ var _controllers_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controllers/api */ "./src/controllers/api/index.js");
-/* harmony import */ var _documentation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./documentation */ "./src/documentation/index.js");
-/* harmony import */ var _database__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./database */ "./src/database/index.js");
+/* harmony import */ var _application_documentation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./application/documentation */ "./src/application/documentation/index.js");
+/* harmony import */ var _application_database__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./application/database */ "./src/application/database/index.js");
 
 
 
@@ -464,129 +587,14 @@ Heroku utiliza la variable de entorno process.env.port para asignar el puerto do
 por eso la hemos definido en esta plantilla
 */
 
-var port = 3006;
-(0,_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
-(0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
+var port = 3009;
+(0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
+(0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
 (0,_controllers_api__WEBPACK_IMPORTED_MODULE_3__.default)(app);
-(0,_database__WEBPACK_IMPORTED_MODULE_5__.default)(function () {
+(0,_application_database__WEBPACK_IMPORTED_MODULE_5__.default)(function () {
   var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
   server.listen(port, function () {
     return console.log("Server listening to http://localhost:".concat(port));
-  });
-});
-
-/***/ }),
-
-/***/ "./src/middlewares/error-handler.js":
-/*!******************************************!*
-  !*** ./src/middlewares/error-handler.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "asyncHandler": () => /* binding */ asyncHandler,
-/* harmony export */   "socketHandler": () => /* binding */ socketHandler
-/* harmony export */ });
-/*Tenemos una función que recibe como parámetro la función de cada controlador,
-la ejecuta (resolve)
-y si  hay algún error, lo mostrará por consola y lanzará un 500
-*/
-var asyncHandler = function asyncHandler(controller) {
-  return function (req, res, next) {
-    return Promise.resolve(controller(req, res, next))["catch"](function (err) {
-      console.error('Request error:' + err.toString());
-      if (err) return res.sendStatus(500).send();
-    });
-  };
-};
-var socketHandler = function socketHandler(controller) {
-  return function (msg) {
-    return Promise.resolve(controller(msg))["catch"](function (err) {
-      console.error('Socket error:' + err);
-    });
-  };
-};
-
-/***/ }),
-
-/***/ "./src/middlewares/index.js":
-/*!**********************************!*
-  !*** ./src/middlewares/index.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cors */ "cors");
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! body-parser */ "body-parser");
-/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(body_parser__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-var Middlewares = function Middlewares(app) {
-  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().urlencoded());
-  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().json());
-  app.use(cors__WEBPACK_IMPORTED_MODULE_0___default()()); // Use this after the variable declaration
-
-  app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-
-    if (req.method === 'OPTIONS') {
-      res.end();
-    } else {
-      next();
-    }
-  });
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Middlewares);
-
-/***/ }),
-
-/***/ "./src/middlewares/restricted-access.js":
-/*!**********************************************!*
-  !*** ./src/middlewares/restricted-access.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getHeader": () => /* binding */ getHeader,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _utils_access__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/access */ "./src/utils/access.js");
-
-var getHeader = function getHeader(req, header) {
-  return req.headers[header];
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (req, res, next) {
-  var token = getHeader(req, 'x-access-token');
-
-  if (!token) {
-    return res.status(400).send('No token provided.');
-  }
-
-  return (0,_utils_access__WEBPACK_IMPORTED_MODULE_0__.verifyToken)(token, function (err) {
-    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-        id = _ref.id;
-
-    if (err) {
-      return res.status(401).send('Failed to authenticate token.');
-    }
-
-    if (!id) {
-      return res.status(403).send('Wrong credentials');
-    }
-
-    req.userId = id;
-    return next();
   });
 });
 
@@ -660,13 +668,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../database */ "./src/database/index.js");
+/* harmony import */ var _application_database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../application/database */ "./src/application/database/index.js");
 
 
 var _require = __webpack_require__(/*! sequelize */ "sequelize"),
     DataTypes = _require.DataTypes;
 
-var User = _database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
+var User = _application_database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
+  username: DataTypes.STRING,
   password: DataTypes.STRING,
   mail: DataTypes.STRING
 });

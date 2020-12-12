@@ -11,7 +11,7 @@ const paths = {
 
 const processEnvPlugin = new webpack.DefinePlugin({
   'process.env': {
-    PORT: process.env.PORT || 3006,
+    PORT: process.env.PORT || 3009,
   },
 });
 
@@ -39,7 +39,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@Middlwares': path.resolve(__dirname, './src/middlewares'),
+      '@Middlwares': path.resolve(__dirname, './src/application/middlewares'),
       '@Utils': path.resolve(__dirname, './src/utils'),
       '@Models': path.resolve(__dirname, './src/models'),
     }

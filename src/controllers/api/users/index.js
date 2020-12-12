@@ -22,15 +22,15 @@ router.post("/login", asyncHandler(async (req, res) => {
 
 // GET ALL
 router.get('/', asyncHandler(async (req, res) => {
-  res.send(`User id: ${userId}`);
   const data = await UsersModel.get();
   res.send(data);
 }));
 
 // GET BY ID
-router.get('/:id', asyncHandler(async (req, res) => {
+router.get('/:userId', asyncHandler(async (req, res) => {
   const { params: { userId } } = req;
-  res.send(`User id: ${userId}`);
+  const data = await UsersModel.getById(userId);
+  res.send(data);
 }));
 
 //Create

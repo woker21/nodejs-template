@@ -3,5 +3,6 @@ export default {
     user: 'root',
     password: '',
     database: 'amor',
-    connectionLimit : 10,
+    connectionLimit: 10,
+    forceCleanDatabase: true
 };
