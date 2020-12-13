@@ -18,7 +18,7 @@ router.get('/:userId', asyncHandler(async (req, res) => {
   res.send(data);
 }));
 
-//Create
+// CREATE
 router.post("/", asyncHandler(async (req, res) => {
   const { body: { mail, pass } } = req;
   await UsersModel.create(mail, pass)
@@ -58,4 +58,4 @@ router.post("/login", asyncHandler(async (req, res) => {
 })
 );
 
-export default router;
+export default ro
