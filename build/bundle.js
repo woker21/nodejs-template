@@ -308,45 +308,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router();
-router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router(); // GET ALL
+
+router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
-    var mail, pass, user, token;
+    var data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            mail = req.body.mail;
-            pass = req.body.pass;
+            _context.next = 2;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.get();
 
-            if (!(!mail || !pass)) {
-              _context.next = 4;
-              break;
-            }
-
-            return _context.abrupt("return", res.send(400));
+          case 2:
+            data = _context.sent;
+            res.send(data);
 
           case 4:
-            _context.next = 6;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getByEmailAndPassword(mail, pass);
-
-          case 6:
-            user = _context.sent;
-
-            if (user) {
-              _context.next = 9;
-              break;
-            }
-
-            return _context.abrupt("return", res.sendStatus(403));
-
-          case 9:
-            token = createToken({
-              id: user.id
-            });
-            res.send(token);
-
-          case 11:
           case "end":
             return _context.stop();
         }
@@ -357,23 +335,24 @@ router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}())); // GET ALL
+}())); // GET BY ID
 
-router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(req, res) {
-    var data;
+    var userId, data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.get();
+            userId = req.params.userId;
+            _context2.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getById(userId);
 
-          case 2:
+          case 3:
             data = _context2.sent;
             res.send(data);
 
-          case 4:
+          case 5:
           case "end":
             return _context2.stop();
         }
@@ -384,24 +363,24 @@ router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncH
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
-}())); // GET BY ID
+}())); //Create
 
-router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
-    var userId, data;
+    var _req$body, mail, pass;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            userId = req.params.userId;
+            _req$body = req.body, mail = _req$body.mail, pass = _req$body.pass;
             _context3.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getById(userId);
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, pass);
 
           case 3:
-            data = _context3.sent;
-            res.send(data);
+            res.send('Usuario creado con éxito');
 
-          case 5:
+          case 4:
           case "end":
             return _context3.stop();
         }
@@ -412,24 +391,23 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
   return function (_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
-}())); //Create
+}())); // DELETE
 
-router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(req, res) {
-    var mail, pass;
+    var id;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            mail = req.body.mail;
-            pass = req.body.pass;
-            _context4.next = 4;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, pass);
+            id = req.params.id;
+            _context4.next = 3;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.remove(id);
+
+          case 3:
+            res.send("User id: ".concat(id, " deleted"));
 
           case 4:
-            res.send('Usuario creado con éxito');
-
-          case 5:
           case "end":
             return _context4.stop();
         }
@@ -440,21 +418,21 @@ router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.async
   return function (_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
-}())); // DELETE
+}())); // TOTAL UPDATE
 
-router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.put("/:id", /*#__PURE__*/function () {
   var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(req, res) {
-    var id;
+    var id, body;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            id = req.params.id;
+            id = req.params.id, body = req.body;
             _context5.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.remove(id);
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.update(id, body);
 
           case 3:
-            res.send("User id: ".concat(id, " deleted"));
+            res.send("User id: ".concat(id, " updated"));
 
           case 4:
           case "end":
@@ -467,23 +445,18 @@ router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_
   return function (_x9, _x10) {
     return _ref5.apply(this, arguments);
   };
-}())); // TOTAL UPDATE
-
-router.put("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, /*#__PURE__*/function () {
+}());
+router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref6 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(req, res) {
-    var id, body;
+    var userId;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            id = req.params.id, body = req.body;
-            _context6.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.update(id, body);
+            userId = req.query.userId;
+            res.send("User id: ".concat(req.userId));
 
-          case 3:
-            res.send("User id: ".concat(id, " updated"));
-
-          case 4:
+          case 2:
           case "end":
             return _context6.stop();
         }
@@ -494,14 +467,45 @@ router.put("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.de
   return function (_x11, _x12) {
     return _ref6.apply(this, arguments);
   };
-}()); // PARCIAL UPDATE
-
-router.patch("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, /*#__PURE__*/function () {
+}()));
+router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref7 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(req, res) {
+    var _req$body2, mail, pass, user, token;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
+            _req$body2 = req.body, mail = _req$body2.mail, pass = _req$body2.pass;
+
+            if (!(!mail || !pass)) {
+              _context7.next = 3;
+              break;
+            }
+
+            return _context7.abrupt("return", res.send(400));
+
+          case 3:
+            _context7.next = 5;
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getByEmailAndPassword(mail, pass);
+
+          case 5:
+            user = _context7.sent;
+
+            if (user) {
+              _context7.next = 8;
+              break;
+            }
+
+            return _context7.abrupt("return", res.sendStatus(403));
+
+          case 8:
+            token = createToken({
+              id: user.id
+            });
+            res.send(token);
+
+          case 10:
           case "end":
             return _context7.stop();
         }
@@ -511,28 +515,6 @@ router.patch("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.
 
   return function (_x13, _x14) {
     return _ref7.apply(this, arguments);
-  };
-}());
-router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
-  var _ref8 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(req, res) {
-    var userId;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            userId = req.query.userId;
-            res.send("User id: ".concat(req.userId));
-
-          case 2:
-          case "end":
-            return _context8.stop();
-        }
-      }
-    }, _callee8);
-  }));
-
-  return function (_x15, _x16) {
-    return _ref8.apply(this, arguments);
   };
 }()));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
