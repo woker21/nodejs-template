@@ -20,13 +20,13 @@ router.get('/:userId', asyncHandler(async (req, res) => {
 
 // CREATE
 router.post("/", asyncHandler(async (req, res) => {
-  const { body: { mail, pass } } = req;
-  await UsersModel.create(mail, pass)
+  const { body: { mail, password } } = req;
+  await UsersModel.create(mail, password)
   res.send('Usuario creado con éxito');
 }));
 
 // DELETE
-router.delete("/:id", restrictedAccess, asyncHandler(async (req, res) => {
+router.delete("/:id", asyncHandler(async (req, res) => {
   const { params: { id } } = req;
   await UsersModel.remove(id);
   res.send(`User id: ${id} deleted`);
@@ -41,13 +41,13 @@ router.put("/:id", async (req, res) => {
 
 router.get("/restricted-path", restrictedAccess, asyncHandler(async (req, res) => {
   const { query: { userId } } = req;
-  res.send(`User id: ${req.userId}`);
+  res.send(`User id: ${userId}`);
 }));
 
 router.post("/login", asyncHandler(async (req, res) => {
-  const { body: { mail, pass } } = req;
+  const { body: { mail, password } } = req;
 
-  if (!mail || !pass) return res.send(400);
+  if (!mail || !password) return res.send(400);
   const user = await UsersModel.getByEmailAndPassword(mail, pass);
 
   if (!user) {

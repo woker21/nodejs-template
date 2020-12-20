@@ -367,15 +367,15 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
 
 router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
-    var _req$body, mail, pass;
+    var _req$body, mail, password;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _req$body = req.body, mail = _req$body.mail, pass = _req$body.pass;
+            _req$body = req.body, mail = _req$body.mail, password = _req$body.password;
             _context3.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, pass);
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, password);
 
           case 3:
             res.send('Usuario creado con éxito');
@@ -393,7 +393,7 @@ router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.async
   };
 }())); // DELETE
 
-router["delete"]("/:id", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router["delete"]("/:id", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(req, res) {
     var id;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -454,7 +454,7 @@ router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_M
         switch (_context6.prev = _context6.next) {
           case 0:
             userId = req.query.userId;
-            res.send("User id: ".concat(req.userId));
+            res.send("User id: ".concat(userId));
 
           case 2:
           case "end":
@@ -470,15 +470,15 @@ router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_M
 }()));
 router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref7 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(req, res) {
-    var _req$body2, mail, pass, user, token;
+    var _req$body2, mail, password, user, token;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            _req$body2 = req.body, mail = _req$body2.mail, pass = _req$body2.pass;
+            _req$body2 = req.body, mail = _req$body2.mail, password = _req$body2.password;
 
-            if (!(!mail || !pass)) {
+            if (!(!mail || !password)) {
               _context7.next = 3;
               break;
             }
@@ -537,7 +537,7 @@ __webpack_require__.r(__webpack_exports__);
   password: '',
   database: 'amor',
   connectionLimit: 10,
-  forceCleanDatabase: true
+  forceCleanDatabase: false
 });
 
 /***/ }),
@@ -569,7 +569,7 @@ Heroku utiliza la variable de entorno process.env.port para asignar el puerto do
 por eso la hemos definido en esta plantilla
 */
 
-var port = 3009;
+var port = 3005;
 (0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
 (0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
 (0,_controllers_api__WEBPACK_IMPORTED_MODULE_3__.default)(app);

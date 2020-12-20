@@ -11,7 +11,7 @@ const paths = {
 
 const processEnvPlugin = new webpack.DefinePlugin({
   'process.env': {
-    PORT: process.env.PORT || 3009,
+    PORT: process.env.PORT || 3005,
   },
 });
 
