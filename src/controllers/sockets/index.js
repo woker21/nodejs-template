@@ -1,5 +1,15 @@
-import UsersController from './users';
+import socketIO from 'socket.io';
+import MessagesController from './message';
 
-export default function (app) {
-  app.use(UsersController);
+const config = {
+  cors: {
+    origin: "*",
+  }
+};
+
+export default (server) => {
+  const io = socketIO(server, config);
+  io.on('connection', (socket) => {
+    MessagesController(io, socket);
+  });
 }
