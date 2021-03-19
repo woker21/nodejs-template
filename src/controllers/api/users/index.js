@@ -13,7 +13,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // GET BY ID
 router.get('/:userId', asyncHandler(async (req, res) => {
-  const { params: { userId } } = req;
+  const { query: { userId } } = req;
   const data = await UsersModel.getById(userId);
   res.send(data);
 }));
