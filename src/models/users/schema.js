@@ -6,3 +6,4 @@ export default db.define('user', {
 	password: DataTypes.STRING,
 	mail: DataTypes.STRING,
 });
+

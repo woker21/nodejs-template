@@ -344,7 +344,7 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            userId = req.params.userId;
+            userId = req.query.userId;
             _context2.next = 3;
             return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getById(userId);
 
@@ -367,15 +367,15 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
 
 router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
-    var _req$body, mail, password;
+    var _req$body, mail, username, password;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _req$body = req.body, mail = _req$body.mail, password = _req$body.password;
+            _req$body = req.body, mail = _req$body.mail, username = _req$body.username, password = _req$body.password;
             _context3.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, password);
+            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, username, password);
 
           case 3:
             res.send('Usuario creado con éxito');
@@ -537,7 +537,7 @@ __webpack_require__.r(__webpack_exports__);
   password: '',
   database: 'amor',
   connectionLimit: 10,
-  forceCleanDatabase: false
+  forceCleanDatabase: true
 });
 
 /***/ }),
@@ -562,6 +562,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ //import SocketsControllers from './controllers/sockets';
 
 var app = express__WEBPACK_IMPORTED_MODULE_0___default()();
 /*
@@ -570,11 +571,12 @@ por eso la hemos definido en esta plantilla
 */
 
 var port = 3005;
+var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
 (0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
 (0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
-(0,_controllers_api__WEBPACK_IMPORTED_MODULE_3__.default)(app);
+(0,_controllers_api__WEBPACK_IMPORTED_MODULE_3__.default)(app); // SocketsControllers(server);
+
 (0,_application_database__WEBPACK_IMPORTED_MODULE_5__.default)(function () {
-  var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
   server.listen(port, function () {
     return console.log("Server listening to http://localhost:".concat(port));
   });
@@ -599,9 +601,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _schema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schema */ "./src/models/users/schema.js");
 
-var create = function create(mail, password) {
+var create = function create(mail, username, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.create({
     mail: mail,
+    username: username,
     password: password
   });
 };
@@ -656,12 +659,11 @@ __webpack_require__.r(__webpack_exports__);
 var _require = __webpack_require__(/*! sequelize */ "sequelize"),
     DataTypes = _require.DataTypes;
 
-var User = _application_database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_application_database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
   username: DataTypes.STRING,
   password: DataTypes.STRING,
   mail: DataTypes.STRING
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (User);
+}));
 
 /***/ }),
 

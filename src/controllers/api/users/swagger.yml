@@ -17,13 +17,16 @@ paths:
               properties:
                 mail:
                   type: string
-                pass:
+                username:
+                  type: string
+                password:
                   type: string
             examples:
               Credentials exmaple:
                 value:
                   mail: pp@pp.com
-                  pass: 123
+                  username: Paco
+                  password: 123
       responses:
         200:
           description: Ok
@@ -54,6 +57,39 @@ paths:
       responses:
         200:
           description: Ok
+    put:
+      summary: Update
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          examples: 
+            a:
+              value: 1
+      requestBody:
+        description: User data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mail:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              Credentials exmaple:
+                value:
+                  mail: aa@aa.com
+                  username: Paco
+                  password: 456
+      responses:
+        200:
+          description: Ok   
   /users/login:
     post:
       summary: login
@@ -69,13 +105,13 @@ paths:
               properties:
                 mail:
                   type: string
-                pass:
+                password:
                   type: string
             examples:
               Credentials exmaple:
                 value:
                   mail: pp@pp.com
-                  pass: 123
+                  password: 123
       responses:
         200:
           description: Ok

@@ -4,5 +4,5 @@ export default {
     password: '',
     database: 'amor',
     connectionLimit: 10,
-    forceCleanDatabase: false
+    forceCleanDatabase: true
 };

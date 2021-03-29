@@ -20,8 +20,8 @@ router.get('/:userId', asyncHandler(async (req, res) => {
 
 // CREATE
 router.post("/", asyncHandler(async (req, res) => {
-  const { body: { mail, password } } = req;
-  await UsersModel.create(mail, password)
+  const { body: { mail, username, password } } = req;
+  await UsersModel.create(mail, username, password)
   res.send('Usuario creado con éxito');
 }));
 
