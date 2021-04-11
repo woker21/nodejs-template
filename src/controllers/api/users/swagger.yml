@@ -75,12 +75,15 @@ paths:
             schema:
               type: object
               properties:
-                mail:
-                  type: string
-                username:
-                  type: string
-                password:
-                  type: string
+                user:
+                  type: object
+                  properties:
+                    mail:
+                      type: string
+                    username:
+                      type: string
+                    password:
+                      type: string
             examples:
               Credentials exmaple:
                 value:

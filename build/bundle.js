@@ -60,16 +60,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sequelize */ "sequelize");
 /* harmony import */ var sequelize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sequelize__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../database */ "./src/database.js");
 
 
 
-
-var database = _database__WEBPACK_IMPORTED_MODULE_3__.default.database,
-    user = _database__WEBPACK_IMPORTED_MODULE_3__.default.user,
-    password = _database__WEBPACK_IMPORTED_MODULE_3__.default.password,
-    host = _database__WEBPACK_IMPORTED_MODULE_3__.default.host,
-    forceCleanDatabase = _database__WEBPACK_IMPORTED_MODULE_3__.default.forceCleanDatabase;
+var database = "heroku_957437ddb52b116";
+var user = "b1dc2aaec7d0e6";
+var password = "4dd2334e";
+var host = "eu-cdbr-west-01.cleardb.com";
+var forceCleanDatabase = process.env.DB_FORCE_CLEAN;
 var db = new sequelize__WEBPACK_IMPORTED_MODULE_2__.Sequelize(database, user, password, {
   host: host,
   dialect: 'mysql',
@@ -521,27 +519,6 @@ router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.
 
 /***/ }),
 
-/***/ "./src/database.js":
-/*!*************************!*
-  !*** ./src/database.js ***!
-  \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'amor',
-  connectionLimit: 10,
-  forceCleanDatabase: true
-});
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*
   !*** ./src/index.js ***!
@@ -570,7 +547,7 @@ Heroku utiliza la variable de entorno process.env.port para asignar el puerto do
 por eso la hemos definido en esta plantilla
 */
 
-var port = 3005;
+var port = "5000";
 var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
 (0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
 (0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);

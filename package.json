@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-local": "run-p watch:build watch:server",
+    "start-local": "webpack --watch --mode=development",
     "build": "cross-env NODE_ENV=production webpack",
-    "watch:server": "nodemon \"./build/bundle.js\"",
-    "watch:build": "cross-env NODE_ENV=development webpack --watch",
     "start": "node ./build/bundle.js"
   },
   "author": "Pablo Monteserín",
@@ -15,10 +13,12 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv-webpack": "^7.0.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.6",
+    "nodemon-webpack-plugin": "^4.5.2",
     "sequelize": "^6.3.5",
     "socket.io": "^3.0.4",
     "swagger-jsdoc": "^5.0.1",

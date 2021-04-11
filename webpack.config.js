@@ -1,19 +1,18 @@
 const path = require('path');
-const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 const webpackNodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
-const development = process.env.NODE_ENV === 'development';
+const isProduction = process.env.NODE_ENV === 'production';
+
+const plugins = isProduction ? [] : [
+  new NodemonPlugin({ legacyWatch: true }),
+];
 
 // Constant with our paths
 const paths = {
   OUTPUT: path.resolve(__dirname, 'build'),
 };
-
-const processEnvPlugin = new webpack.DefinePlugin({
-  'process.env': {
-    PORT: process.env.PORT || 3005,
-  },
-});
 
 module.exports = {
   entry: {
@@ -46,6 +45,9 @@ module.exports = {
   },
   externals: [webpackNodeExternals()],
   mode: process.env.NODE_ENV,
-  devtool: development && 'source-map',
-  plugins: [processEnvPlugin],
+  devtool: !isProduction && 'source-map',
+  plugins: [
+    ...plugins,
+    new Dotenv({ path: './.env', systemvars: true }),
+  ],
 };
