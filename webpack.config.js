@@ -7,6 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const plugins = isProduction ? [] : [
   new NodemonPlugin({ legacyWatch: true }),
+  new Dotenv({ path: './.env', systemvars: true }),
 ];
 
 // Constant with our paths
@@ -46,8 +47,5 @@ module.exports = {
   externals: [webpackNodeExternals()],
   mode: process.env.NODE_ENV,
   devtool: !isProduction && 'source-map',
-  plugins: [
-    ...plugins,
-    new Dotenv({ path: './.env', systemvars: true }),
-  ],
+  plugins,
 };
