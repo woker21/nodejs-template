@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-local": "webpack --watch --mode=development",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "webpack --mode=production",
     "start": "node ./build/bundle.js"
   },
   "author": "Pablo Monteserín",
