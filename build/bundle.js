@@ -547,7 +547,7 @@ Heroku utiliza la variable de entorno process.env.port para asignar el puerto do
 por eso la hemos definido en esta plantilla
 */
 
-var port = "5000";
+var port = "5000" || 0;
 var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
 (0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
 (0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);

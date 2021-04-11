@@ -11,7 +11,7 @@ const app = express();
 Heroku utiliza la variable de entorno process.env.port para asignar el puerto donde se va ejecutar el servidor,
 por eso la hemos definido en esta plantilla
 */
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 Documentation(app);
