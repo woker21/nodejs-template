@@ -37,7 +37,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
     alias: {
       '@Middlwares': path.resolve(__dirname, './src/application/middlewares'),
       '@Utils': path.resolve(__dirname, './src/utils'),
