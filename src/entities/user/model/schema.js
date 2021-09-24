@@ -1,4 +1,4 @@
-import { db } from '../../application/database';
+import { db } from '@Application/database';
 const { DataTypes } = require('sequelize');
 
 export default db.define('user', {

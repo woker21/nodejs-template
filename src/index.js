@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import Middlewares from './application/middlewares';
-import ApiControllers from './controllers/api';
+import Controllers from './entities';
 import Documentation from './application/documentation';
 import ConnectDatabase from './application/database';
 //import SocketsControllers from './controllers/sockets';
@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 Documentation(app);
 Middlewares(app);
-ApiControllers(app);
+Controllers(app);
 // SocketsControllers(server);
 
 ConnectDatabase(() => {

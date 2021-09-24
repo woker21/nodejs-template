@@ -18,12 +18,12 @@ export const swaggerConfig = {
       { ApiKeyAuth: [] },
     ],
     securityDefinitions: {
-        basicAuth: {
-            type: 'basic'
-        },
+      basicAuth: {
+        type: 'basic'
+      },
     },
   },
   // Path to the API docs
-  apis: ['./src/controllers/**/*.js', './src/controllers/**/*.yml'],
+  apis: ['./src/entities/**/*.js', './src/entities/**/*.yml'],
 };
 

@@ -38,7 +38,7 @@ var swaggerConfig = {
     }
   },
   // Path to the API docs
-  apis: ['./src/controllers/**/*.js', './src/controllers/**/*.yml']
+  apis: ['./src/entities/**/*.js', './src/entities/**/*.yml']
 };
 
 /***/ }),
@@ -67,7 +67,7 @@ var database = "heroku_957437ddb52b116";
 var user = "b1dc2aaec7d0e6";
 var password = "4dd2334e";
 var host = "eu-cdbr-west-01.cleardb.com";
-var forceCleanDatabase = process.env.DB_FORCE_CLEAN;
+var forceCleanDatabase = "true";
 var db = new sequelize__WEBPACK_IMPORTED_MODULE_2__.Sequelize(database, user, password, {
   host: host,
   dialect: 'mysql',
@@ -187,17 +187,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cors */ "cors");
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! body-parser */ "body-parser");
-/* harmony import */ var body_parser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(body_parser__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cors */ "cors");
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
 var Middlewares = function Middlewares(app) {
-  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().urlencoded());
-  app.use(body_parser__WEBPACK_IMPORTED_MODULE_1___default().json());
-  app.use(cors__WEBPACK_IMPORTED_MODULE_0___default()()); // Use this after the variable declaration
+  app.use(express__WEBPACK_IMPORTED_MODULE_0___default().urlencoded({
+    extended: true
+  }));
+  app.use(express__WEBPACK_IMPORTED_MODULE_0___default().json());
+  app.use(cors__WEBPACK_IMPORTED_MODULE_1___default()()); // Use this after the variable declaration
 
   app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -259,32 +261,32 @@ var getHeader = function getHeader(req, header) {
 
 /***/ }),
 
-/***/ "./src/controllers/api/index.js":
-/*!**************************************!*
-  !*** ./src/controllers/api/index.js ***!
-  \**************************************/
+/***/ "./src/entities/index.js":
+/*!*******************************!*
+  !*** ./src/entities/index.js ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* export default binding */ __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users */ "./src/controllers/api/users/index.js");
+/* harmony import */ var _user_controller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user/controller */ "./src/entities/user/controller/index.js");
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(app) {
   // Private
-  app.use('/users', _users__WEBPACK_IMPORTED_MODULE_0__.default);
+  app.use('/users', _user_controller__WEBPACK_IMPORTED_MODULE_0__.default);
   app.use('/', function (req, res) {
-    return res.send("Working like a charm \u0669(^\u203F^)\u06F6");
+    return res.send('Working like a charm');
   });
 }
 
 /***/ }),
 
-/***/ "./src/controllers/api/users/index.js":
-/*!********************************************!*
-  !*** ./src/controllers/api/users/index.js ***!
-  \********************************************/
+/***/ "./src/entities/user/controller/index.js":
+/*!***********************************************!*
+  !*** ./src/entities/user/controller/index.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -297,18 +299,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! express */ "express");
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Models_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Models/users */ "./src/models/users/index.js");
-/* harmony import */ var _Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Middlwares/error-handler */ "./src/application/middlewares/error-handler.js");
+/* harmony import */ var _Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Middlwares/error-handler */ "./src/application/middlewares/error-handler.js");
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../model */ "./src/entities/user/model/index.js");
 /* harmony import */ var _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Middlwares/restricted-access */ "./src/application/middlewares/restricted-access.js");
 
 
 
 
+ // Para operaciones con acceso restringido, introduciremos un segundo parámetro que será la variable restrictedAccess
 
 
 var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router(); // GET ALL
 
-router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_3__.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
     var data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -316,7 +319,7 @@ router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncH
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.get();
+            return _model__WEBPACK_IMPORTED_MODULE_4__.get();
 
           case 2:
             data = _context.sent;
@@ -335,7 +338,7 @@ router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncH
   };
 }())); // GET BY ID
 
-router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_3__.asyncHandler)( /*#__PURE__*/function () {
   var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(req, res) {
     var userId, data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -344,7 +347,7 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
           case 0:
             userId = req.query.userId;
             _context2.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getById(userId);
+            return _model__WEBPACK_IMPORTED_MODULE_4__.getById(userId);
 
           case 3:
             data = _context2.sent;
@@ -363,7 +366,7 @@ router.get('/:userId', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__
   };
 }())); // CREATE
 
-router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_3__.asyncHandler)( /*#__PURE__*/function () {
   var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(req, res) {
     var _req$body, mail, username, password;
 
@@ -373,7 +376,7 @@ router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.async
           case 0:
             _req$body = req.body, mail = _req$body.mail, username = _req$body.username, password = _req$body.password;
             _context3.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.create(mail, username, password);
+            return _model__WEBPACK_IMPORTED_MODULE_4__.create(mail, username, password);
 
           case 3:
             res.send('Usuario creado con éxito');
@@ -391,7 +394,7 @@ router.post("/", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.async
   };
 }())); // DELETE
 
-router["delete"]("/:id", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+router["delete"]("/:id", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_3__.asyncHandler)( /*#__PURE__*/function () {
   var _ref4 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(req, res) {
     var id;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -400,7 +403,7 @@ router["delete"]("/:id", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4
           case 0:
             id = req.params.id;
             _context4.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.remove(id);
+            return _model__WEBPACK_IMPORTED_MODULE_4__.remove(id);
 
           case 3:
             res.send("User id: ".concat(id, " deleted"));
@@ -427,7 +430,7 @@ router.put("/:id", /*#__PURE__*/function () {
           case 0:
             id = req.params.id, body = req.body;
             _context5.next = 3;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.update(id, body);
+            return _model__WEBPACK_IMPORTED_MODULE_4__.update(id, body);
 
           case 3:
             res.send("User id: ".concat(id, " updated"));
@@ -444,127 +447,14 @@ router.put("/:id", /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }());
-router.get("/restricted-path", _Middlwares_restricted_access__WEBPACK_IMPORTED_MODULE_5__.default, (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
-  var _ref6 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(req, res) {
-    var userId;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            userId = req.query.userId;
-            res.send("User id: ".concat(userId));
-
-          case 2:
-          case "end":
-            return _context6.stop();
-        }
-      }
-    }, _callee6);
-  }));
-
-  return function (_x11, _x12) {
-    return _ref6.apply(this, arguments);
-  };
-}()));
-router.post("/login", (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
-  var _ref7 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(req, res) {
-    var _req$body2, mail, password, user, token;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
-      while (1) {
-        switch (_context7.prev = _context7.next) {
-          case 0:
-            _req$body2 = req.body, mail = _req$body2.mail, password = _req$body2.password;
-
-            if (!(!mail || !password)) {
-              _context7.next = 3;
-              break;
-            }
-
-            return _context7.abrupt("return", res.send(400));
-
-          case 3:
-            _context7.next = 5;
-            return _Models_users__WEBPACK_IMPORTED_MODULE_3__.getByEmailAndPassword(mail, pass);
-
-          case 5:
-            user = _context7.sent;
-
-            if (user) {
-              _context7.next = 8;
-              break;
-            }
-
-            return _context7.abrupt("return", res.sendStatus(403));
-
-          case 8:
-            token = createToken({
-              id: user.id
-            });
-            res.send(token);
-
-          case 10:
-          case "end":
-            return _context7.stop();
-        }
-      }
-    }, _callee7);
-  }));
-
-  return function (_x13, _x14) {
-    return _ref7.apply(this, arguments);
-  };
-}()));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*
-  !*** ./src/index.js ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
-/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! http */ "http");
-/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _application_middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./application/middlewares */ "./src/application/middlewares/index.js");
-/* harmony import */ var _controllers_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./controllers/api */ "./src/controllers/api/index.js");
-/* harmony import */ var _application_documentation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./application/documentation */ "./src/application/documentation/index.js");
-/* harmony import */ var _application_database__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./application/database */ "./src/application/database/index.js");
-
-
-
-
-
- //import SocketsControllers from './controllers/sockets';
-
-var app = express__WEBPACK_IMPORTED_MODULE_0___default()();
-/*
-Heroku utiliza la variable de entorno process.env.port para asignar el puerto donde se va ejecutar el servidor,
-por eso la hemos definido en esta plantilla
-*/
-
-var port = "5000" || 0;
-var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
-(0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
-(0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
-(0,_controllers_api__WEBPACK_IMPORTED_MODULE_3__.default)(app); // SocketsControllers(server);
-
-(0,_application_database__WEBPACK_IMPORTED_MODULE_5__.default)(function () {
-  server.listen(port, function () {
-    return console.log("Server listening to http://localhost:".concat(port));
-  });
-});
-
-/***/ }),
-
-/***/ "./src/models/users/index.js":
-/*!***********************************!*
-  !*** ./src/models/users/index.js ***!
-  \***********************************/
+/***/ "./src/entities/user/model/index.js":
+/*!******************************************!*
+  !*** ./src/entities/user/model/index.js ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -576,7 +466,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getById": () => /* binding */ getById,
 /* harmony export */   "get": () => /* binding */ get
 /* harmony export */ });
-/* harmony import */ var _schema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schema */ "./src/models/users/schema.js");
+/* harmony import */ var _schema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schema */ "./src/entities/user/model/schema.js");
 
 var create = function create(mail, username, password) {
   return _schema__WEBPACK_IMPORTED_MODULE_0__.default.create({
@@ -620,27 +510,69 @@ var get = function get() {
 
 /***/ }),
 
-/***/ "./src/models/users/schema.js":
-/*!************************************!*
-  !*** ./src/models/users/schema.js ***!
-  \************************************/
+/***/ "./src/entities/user/model/schema.js":
+/*!*******************************************!*
+  !*** ./src/entities/user/model/schema.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _application_database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../application/database */ "./src/application/database/index.js");
+/* harmony import */ var _Application_database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @Application/database */ "./src/application/database/index.js");
 
 
 var _require = __webpack_require__(/*! sequelize */ "sequelize"),
     DataTypes = _require.DataTypes;
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_application_database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_Application_database__WEBPACK_IMPORTED_MODULE_0__.db.define('user', {
   username: DataTypes.STRING,
   password: DataTypes.STRING,
   mail: DataTypes.STRING
 }));
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ "express");
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! http */ "http");
+/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _application_middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./application/middlewares */ "./src/application/middlewares/index.js");
+/* harmony import */ var _entities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./entities */ "./src/entities/index.js");
+/* harmony import */ var _application_documentation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./application/documentation */ "./src/application/documentation/index.js");
+/* harmony import */ var _application_database__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./application/database */ "./src/application/database/index.js");
+
+
+
+
+
+ //import SocketsControllers from './controllers/sockets';
+
+var app = express__WEBPACK_IMPORTED_MODULE_0___default()();
+/*
+Heroku utiliza la variable de entorno process.env.port para asignar el puerto donde se va ejecutar el servidor,
+por eso la hemos definido en esta plantilla
+*/
+
+var port = process.env.PORT || 5000;
+var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
+(0,_application_documentation__WEBPACK_IMPORTED_MODULE_4__.default)(app);
+(0,_application_middlewares__WEBPACK_IMPORTED_MODULE_2__.default)(app);
+(0,_entities__WEBPACK_IMPORTED_MODULE_3__.default)(app); // SocketsControllers(server);
+
+(0,_application_database__WEBPACK_IMPORTED_MODULE_5__.default)(function () {
+  server.listen(port, function () {
+    return console.log("Server listening to http://localhost:".concat(port));
+  });
+});
 
 /***/ }),
 
@@ -687,16 +619,6 @@ module.exports = require("@babel/runtime/helpers/asyncToGenerator");;
 /***/ ((module) => {
 
 module.exports = require("@babel/runtime/regenerator");;
-
-/***/ }),
-
-/***/ "body-parser":
-/*!******************************!*
-  !*** external "body-parser" ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = require("body-parser");;
 
 /***/ }),
 

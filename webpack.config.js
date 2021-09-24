@@ -39,6 +39,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     alias: {
+      '@Application': path.resolve(__dirname, './src/application'),
       '@Middlwares': path.resolve(__dirname, './src/application/middlewares'),
       '@Utils': path.resolve(__dirname, './src/utils'),
       '@Models': path.resolve(__dirname, './src/models'),
