@@ -4,20 +4,20 @@ import Middlewares from './application/middlewares';
 import Controllers from './entities';
 import Documentation from './application/documentation';
 import ConnectDatabase from './application/database';
-//import SocketsControllers from './controllers/sockets';
+import SocketsControllers from './sockets';
 
 const app = express();
 /*
 Heroku utiliza la variable de entorno process.env.port para asignar el puerto donde se va ejecutar el servidor,
 por eso la hemos definido en esta plantilla
 */
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const server = http.createServer(app);
 
 Documentation(app);
 Middlewares(app);
 Controllers(app);
-// SocketsControllers(server);
+SocketsControllers(server);
 
 ConnectDatabase(() => {
     server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));

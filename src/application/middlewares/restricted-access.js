@@ -1,4 +1,4 @@
-import { verifyToken } from '../../utils/access';
+import { verifyToken } from '@Application/common/utils/access';
 export const getHeader = (req, header) => req.headers[header];
 
 export default (req, res, next) => {
