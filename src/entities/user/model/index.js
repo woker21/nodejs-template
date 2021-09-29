@@ -10,12 +10,9 @@ export const update = (id, data) => Schema.update(data, { where: { id } });
 
 export const remove = id => Schema.destroy({ where: { id } });
 
-export const getByEmailAndPassword = (mail, password) => Schema.findOne({
-    where: {
-        mail,
-        password
-    }
-});
+
+
+export const get = () => Schema.findAll();
 
 export const getById = (id) => Schema.findOne({
     where: {
@@ -23,4 +20,9 @@ export const getById = (id) => Schema.findOne({
     }
 });
 
-export const get = () => Schema.findAll();
+export const getByConditions = (conditions) => Schema.findOne({
+    where: {
+        teacherId: conditions.teacherId,
+        cod: conditions.cod
+    }
+});

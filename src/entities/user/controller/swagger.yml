@@ -1,5 +1,5 @@
 paths:
-  /users/:
+  /user/:
     get:
       summary: Get all users
       tags:
@@ -30,7 +30,7 @@ paths:
       responses:
         200:
           description: Ok
-  /users/{id}:
+  /user/{id}:
     delete:
       summary: Delete user by id
       tags:
@@ -50,10 +50,7 @@ paths:
         - name: id
           in: path
           required: true
-          examples: 
-            a:
-              value: 1
-              summary: Le pasamos un 1
+          example: 1 
       responses:
         200:
           description: Ok
@@ -65,9 +62,7 @@ paths:
         - name: id
           in: path
           required: true
-          examples: 
-            a:
-              value: 1
+          example: 1
       requestBody:
         description: User data
         content:
@@ -93,36 +88,3 @@ paths:
       responses:
         200:
           description: Ok   
-  /users/login:
-    post:
-      summary: login
-      description: Login endpoint
-      tags:
-        - Users
-      requestBody:
-        description: User credentials (email, password)
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                mail:
-                  type: string
-                password:
-                  type: string
-            examples:
-              Credentials exmaple:
-                value:
-                  mail: pp@pp.com
-                  password: 123
-      responses:
-        200:
-          description: Ok
-  /users/restricted-path:
-    get:
-      description: Restricted path
-      tags:
-        - Users
-      responses:
-        200:
-          description: Ok
