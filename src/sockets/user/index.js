@@ -1,10 +1,12 @@
-import * as Model from '../../entities/user/model';
-import { socketHandler } from '../../../middlewares/error-handler';
+import { socketHandler } from '@Middlwares/error-handler';
 
 const StartSocketServer = (io, socket) => {
   socket.on('alguienTermino', socketHandler(async (msg) => {
-    await Model.create('pp@pp.com', 'juan', 'rqr');
-    io.emit('usuarioCreado', msg);
+    io.emit('alguienTermino', msg);
+  }));
+
+  socket.on('addAlumnos', socketHandler(async (msg) => {
+    console.log('aaaaaaaaaaaaaaaa', msg);
   }));
 };
 
