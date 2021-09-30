@@ -1,7 +1,7 @@
 import Schema from './schema';
 
-export const create = (mail, username, password) => Schema.create({
-    mail,
+export const create = (email, username, password) => Schema.create({
+    email,
     username,
     password,
 });

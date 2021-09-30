@@ -15,7 +15,7 @@ paths:
             schema:
               type: object
               properties:
-                mail:
+                email:
                   type: string
                 username:
                   type: string
@@ -24,7 +24,7 @@ paths:
             examples:
               Credentials exmaple:
                 value:
-                  mail: pp@pp.com
+                  email: pp@pp.com
                   username: Paco
                   password: 123
       responses:
@@ -55,7 +55,7 @@ paths:
         200:
           description: Ok
     put:
-      summary: Update
+      summary: Update user by id
       tags:
         - Users
       parameters:
@@ -73,7 +73,7 @@ paths:
                 user:
                   type: object
                   properties:
-                    mail:
+                    email:
                       type: string
                     username:
                       type: string
@@ -82,7 +82,7 @@ paths:
             examples:
               Credentials exmaple:
                 value:
-                  mail: aa@aa.com
+                  email: aa@aa.com
                   username: Paco
                   password: 456
       responses:
