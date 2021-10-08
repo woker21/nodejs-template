@@ -1,9 +1,12 @@
-import UsersController from './user/controller';
+import userRoutes from './user/adapters/http';
+import userSockets from './user/adapters/socket';
 
-export default function (app) {
-  // Private
-  app.use('/user', UsersController);
+export const Routes = (app) => {
+  userRoutes(app);
+  // messageRoutes(app);
+}
 
-  app.use('/', (req, res) => res.send('Working like a charm'));
-
+export const Sockets = (io, socket) => {
+  userSockets(io, socket);
+  // messageSockets(io, socket);
 }

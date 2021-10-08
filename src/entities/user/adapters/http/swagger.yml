@@ -4,6 +4,9 @@ paths:
       summary: Get all users
       tags:
         - Users
+      responses:
+        200:
+          description: Ok
     post:
       summary: Create
       tags:

@@ -1,10 +1,11 @@
 import express from 'express';
 import http from 'http';
+import socketIO from 'socket.io';
+import { config } from '@Application/config/sockets';
 import Middlewares from './application/middlewares';
-import Controllers from './entities';
+import { Routes, Sockets } from './entities';
 import Documentation from './application/documentation';
 import ConnectDatabase from './application/database';
-import SocketsControllers from './sockets';
 
 const app = express();
 /*
@@ -16,9 +17,14 @@ const server = http.createServer(app);
 
 Documentation(app);
 Middlewares(app);
-Controllers(app);
-SocketsControllers(server);
+Routes(app);
+
 
 ConnectDatabase(() => {
     server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));
+});
+
+const io = socketIO(server, config);
+io.on('connection', (socket) => {
+    Sockets(io, socket);
 });

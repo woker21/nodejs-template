@@ -1,44 +1,22 @@
-import express from 'express';
-import { asyncHandler } from "@Middlwares/error-handler";
-import * as Model from "../model";
-// Para operaciones con acceso restringido, introduciremos un segundo parámetro que será la variable restrictedAccess
-import restrictedAccess from "@Middlwares/restricted-access";
+import Model from "../model";
+import GenericController from "@Application/repository/generic-controller";
 
-const router = express.Router();
+const Controller = {
+  get(conditions) {
+    return Model.get(conditions);
+  },
+  getById(id) {
+    return Model.getById(id);
+  },
+  create(data) {
+    return Model.create(data);
+  },
+  updateById(id, data) {
+    return Model.updateById(id, data);
+  },
+  deleteById(id) {
+    return Model.deleteById(id);
+  }
+}
 
-// GET ALL
-router.get('/', asyncHandler(async (req, res) => {
-  const data = await Model.get();
-  res.send(data);
-}));
-
-// GET BY ID
-router.get('/:id', asyncHandler(async (req, res) => {
-  const { query: { id } } = req;
-  const data = await Model.getById(id);
-  res.send(data);
-}));
-
-// CREATE
-router.post("/", asyncHandler(async (req, res) => {
-  const { body: { email, username, password } } = req;
-  await Model.create(email, username, password)
-  res.send('Usuario creado con éxito');
-}));
-
-// DELETE
-router.delete("/:id", asyncHandler(async (req, res) => {
-  const { params: { id } } = req;
-  await Model.remove(id);
-  res.send(`User id: ${id} deleted`);
-}));
-
-// TOTAL UPDATE
-router.put("/:id", async (req, res) => {
-  const { params: { id }, body } = req;
-  await Model.update(id, body);
-  res.send(`User id: ${id} updated`);
-});
-
-
-export default router;
+export default Controller;
