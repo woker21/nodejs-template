@@ -9,11 +9,19 @@ const forceCleanDatabase = process.env.DB_FORCE_CLEAN === 'true';
 export const db = new Sequelize(database, user, password, {
 	host,
 	dialect: 'mysql',
-	query: { raw: true }
 });
+
+export const setAssociations = (db) => {
+	Object.keys(db.models).forEach((modelName) => {
+		if ('associate' in db.models[modelName]) {
+			db.models[modelName].associate(db.models);
+		}
+	});
+};
 
 export default async (onConnect) => {
 	try {
+		await setAssociations(db);
 		await db.authenticate();
 		db.sync({ force: forceCleanDatabase });
 		onConnect();
