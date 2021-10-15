@@ -1,5 +1,4 @@
 import Model from "../model";
-import GenericController from "@Application/repository/generic-controller";
 
 const Controller = {
   get(conditions) {
