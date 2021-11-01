@@ -11,7 +11,7 @@
   "author": "Pablo Monteserín",
   "license": "ISC",
   "dependencies": {
-    "@auth0/auth0-react": "^1.8.0",
+    "auth0": "^2.36.2",
     "@babel/runtime": "^7.15.4",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
