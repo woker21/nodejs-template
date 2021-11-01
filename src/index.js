@@ -14,9 +14,10 @@ por eso la hemos definido en esta plantilla
 */
 const port = process.env.PORT;
 const server = http.createServer(app);
+const io = socketIO(server, config);
 
 Documentation(app);
-Middlewares(app);
+Middlewares(app, io);
 Routes(app);
 
 
@@ -24,7 +25,6 @@ ConnectDatabase(() => {
     server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));
 });
 
-const io = socketIO(server, config);
 io.on('connection', (socket) => {
     Sockets(io, socket);
 });
