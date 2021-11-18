@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
+import { getKey } from './secret';
 
-const secret = 'secret';
-
-export const decodeToken = jwt.decode;
-
-export const createToken = data => jwt.sign(data, secret);
-
-export const verifyToken = (token, callback) => jwt.verify(token, secret, callback);
+export const verifyToken = token => new Promise(((resolve, reject) => {
+    jwt.verify(token, getKey, (err, decoded) => err || !decoded
+        ? reject(err)
+        : resolve({ ...decoded, id: decoded.sub || decoded.id }));
+}));

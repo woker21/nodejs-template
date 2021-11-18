@@ -1,4 +1,4 @@
-import Model from "../model";
+import Model from "../../user/model";
 
 const Controller = {
   get(conditions) {

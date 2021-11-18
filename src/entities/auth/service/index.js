@@ -6,7 +6,7 @@ const AuthService = () => ({
     async signIn(providerToken) {
         const { id, email, email_verified } = await verifyAuthToken(providerToken);
 
-        const user = await UserModel.findOrCreate({auth0Id:id});
+        const [user] = await UserModel.findOrCreate({ auth0Id: id });
 
         return { user, verified: email_verified };
     },

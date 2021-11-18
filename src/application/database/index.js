@@ -1,4 +1,4 @@
-import {Sequelize, DataTypes} from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 
 const database = process.env.DB_NAME;
 const user = process.env.DB_USER;
@@ -9,9 +9,10 @@ const forceCleanDatabase = process.env.DB_FORCE_CLEAN === 'true';
 export const db = new Sequelize(database, user, password, {
     host,
     dialect: 'mysql',
+    logging: false,
 });
 
-export {DataTypes};
+export { DataTypes };
 
 export const setAssociations = (db) => {
     Object.keys(db.models).forEach((modelName) => {
@@ -25,7 +26,7 @@ export default async (onConnect) => {
     try {
         await setAssociations(db);
         await db.authenticate();
-        db.sync({force: forceCleanDatabase});
+        db.sync({ force: forceCleanDatabase });
         onConnect();
         console.log('Database connection OK!');
     } catch (error) {
