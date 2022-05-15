@@ -7,7 +7,7 @@ import restrictedAccess from "@Middlwares/restricted-access";
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-    await Controller.create({ email: 'borrame@borrame.com' });
+    // await Controller.create({ email: 'borrame@borrame.com' });
     res.send('Llegamos a user');
 }));
 
