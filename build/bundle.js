@@ -50,7 +50,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jwks_rsa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jwks-rsa */ "jwks-rsa");
 /* harmony import */ var jwks_rsa__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jwks_rsa__WEBPACK_IMPORTED_MODULE_0__);
 
+<<<<<<< HEAD
 var JWKS_URI = "https://components-and-nodejs-template.eu.auth0.com/.well-known/jwks.json";
+=======
+var JWKS_URI = process.env.JWKS_URI;
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 var client = jwks_rsa__WEBPACK_IMPORTED_MODULE_0___default()({
   jwksUri: String(JWKS_URI)
 });
@@ -148,7 +152,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+<<<<<<< HEAD
 var database = "nodejstemplate";
+=======
+var database = "borrame3";
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 var user = "root";
 var password = "";
 var host = "localhost";
@@ -181,14 +189,19 @@ var setAssociations = function setAssociations(db) {
             return db.authenticate();
 
           case 5:
+<<<<<<< HEAD
             _context.next = 7;
             return db.sync({
+=======
+            db.sync({
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
               force: forceCleanDatabase
             });
 
           case 7:
             onConnect();
             console.log('Database connection OK!');
+<<<<<<< HEAD
             _context.next = 14;
             break;
 
@@ -198,11 +211,26 @@ var setAssociations = function setAssociations(db) {
             console.log('Unable to connect to the database:');
 
           case 14:
+=======
+            _context.next = 13;
+            break;
+
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](0);
+            console.log('Unable to connect to the database:');
+
+          case 13:
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
           case "end":
             return _context.stop();
         }
       }
+<<<<<<< HEAD
     }, _callee, null, [[0, 11]]);
+=======
+    }, _callee, null, [[0, 10]]);
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
   }));
 
   return function (_x) {
@@ -290,10 +318,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cors */ "cors");
 /* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _with_sockets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./with-sockets */ "./src/application/middlewares/with-sockets.js");
+<<<<<<< HEAD
 
 
 
 
+=======
+
+
+
+
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 var Middlewares = function Middlewares(app, io) {
   app.use(express__WEBPACK_IMPORTED_MODULE_0___default().urlencoded({
     extended: true
@@ -424,7 +459,34 @@ var GenericModel = function GenericModel(Model) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./src/entities/auth/adapters/http/index.js":
+=======
+/***/ "./src/entities/index.js":
+/*!*******************************!*\
+  !*** ./src/entities/index.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Routes": () => (/* binding */ Routes),
+/* harmony export */   "Sockets": () => (/* binding */ Sockets)
+/* harmony export */ });
+/* harmony import */ var _user_adapters_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user/adapters/http */ "./src/entities/user/adapters/http/index.js");
+ // import userSockets from './user/adapters/socket';
+// import authRoutes from './auth/adapters/http';
+
+var Routes = function Routes(app) {
+  (0,_user_adapters_http__WEBPACK_IMPORTED_MODULE_0__["default"])(app); // authRoutes(app);
+};
+var Sockets = function Sockets(io, socket) {// userSockets(io, socket);
+};
+
+/***/ }),
+
+/***/ "./src/entities/user/adapters/http/index.js":
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 /*!**************************************************!*\
   !*** ./src/entities/auth/adapters/http/index.js ***!
   \**************************************************/
@@ -450,16 +512,21 @@ __webpack_require__.r(__webpack_exports__);
  // Para operaciones con acceso restringido, introduciremos un segundo parámetro que será la variable restrictedAccess
 
 
+<<<<<<< HEAD
 var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router(); // GET ALL
 
 router.post('/login', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+=======
+var router = express__WEBPACK_IMPORTED_MODULE_2___default().Router();
+router.get('/', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.asyncHandler)( /*#__PURE__*/function () {
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
   var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(req, res) {
-    var data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
+<<<<<<< HEAD
             return _controller__WEBPACK_IMPORTED_MODULE_3__["default"].login(req.body.token);
 
           case 2:
@@ -468,6 +535,16 @@ router.post('/login', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.
             res.send(data);
 
           case 5:
+=======
+            return _controller__WEBPACK_IMPORTED_MODULE_3__["default"].create({
+              email: 'borrame@borrame.com'
+            });
+
+          case 2:
+            res.send('Llegamos a user');
+
+          case 3:
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
           case "end":
             return _context.stop();
         }
@@ -479,6 +556,7 @@ router.post('/login', (0,_Middlwares_error_handler__WEBPACK_IMPORTED_MODULE_4__.
     return _ref.apply(this, arguments);
   };
 }()));
+<<<<<<< HEAD
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (app) {
   return app.use('/auth', router);
 });
@@ -726,12 +804,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var router = express__WEBPACK_IMPORTED_MODULE_0___default().Router();
+=======
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function (app) {
   return app.use('/user', router);
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./src/entities/user/adapters/socket/index.js":
 /*!****************************************************!*\
   !*** ./src/entities/user/adapters/socket/index.js ***!
@@ -807,6 +888,8 @@ var StartSocketServer = function StartSocketServer(io, socket) {
 
 /***/ }),
 
+=======
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 /***/ "./src/entities/user/controller/index.js":
 /*!***********************************************!*\
   !*** ./src/entities/user/controller/index.js ***!
@@ -817,6 +900,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+<<<<<<< HEAD
 /* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../user/model */ "./src/entities/user/model/index.js");
 
 var Controller = {
@@ -834,6 +918,25 @@ var Controller = {
   },
   deleteById: function deleteById(id) {
     return _user_model__WEBPACK_IMPORTED_MODULE_0__["default"].deleteById(id);
+=======
+/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../model */ "./src/entities/user/model/index.js");
+
+var Controller = {
+  get: function get(conditions) {
+    return _model__WEBPACK_IMPORTED_MODULE_0__["default"].get(conditions);
+  },
+  getById: function getById(id) {
+    return _model__WEBPACK_IMPORTED_MODULE_0__["default"].getById(id);
+  },
+  create: function create(data) {
+    return _model__WEBPACK_IMPORTED_MODULE_0__["default"].create(data);
+  },
+  updateById: function updateById(id, data) {
+    return _model__WEBPACK_IMPORTED_MODULE_0__["default"].updateById(id, data);
+  },
+  deleteById: function deleteById(id) {
+    return _model__WEBPACK_IMPORTED_MODULE_0__["default"].deleteById(id);
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Controller);
@@ -1138,7 +1241,11 @@ por eso la hemos definido en esta plantilla
 
 var port = "5000";
 var server = http__WEBPACK_IMPORTED_MODULE_1___default().createServer(app);
+<<<<<<< HEAD
 var io = new socket_io__WEBPACK_IMPORTED_MODULE_2__.Server(server, _Application_config_sockets__WEBPACK_IMPORTED_MODULE_3__.config);
+=======
+var io = socket_io__WEBPACK_IMPORTED_MODULE_2___default()(server, _Application_config_sockets__WEBPACK_IMPORTED_MODULE_3__.config);
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 (0,_application_documentation__WEBPACK_IMPORTED_MODULE_6__["default"])(app);
 (0,_application_middlewares__WEBPACK_IMPORTED_MODULE_4__["default"])(app, io);
 (0,_entities__WEBPACK_IMPORTED_MODULE_5__.Routes)(app);
@@ -1152,6 +1259,12 @@ var io = new socket_io__WEBPACK_IMPORTED_MODULE_2__.Server(server, _Application_
     return console.log("Server listening to http://localhost:".concat(port));
   });
 });
+<<<<<<< HEAD
+=======
+io.on('connection', function (socket) {
+  (0,_entities__WEBPACK_IMPORTED_MODULE_5__.Sockets)(io, socket);
+});
+>>>>>>> 69e48ca92a6b419ac24f536a3aca6f7df30ff567
 })();
 
 /******/ })()
