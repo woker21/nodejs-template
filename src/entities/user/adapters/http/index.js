@@ -8,4 +8,4 @@ const router = express.Router();
 
 
 
-export default app => app.use('/user', router);
+export default (app, entityUrl) => app.use(entityUrl, router);

@@ -1,6 +1,6 @@
 import express from 'express';
 import http from 'http';
-import socketIO from 'socket.io';
+import { Server } from 'socket.io';
 import { config } from '@Application/config/sockets';
 import Middlewares from './application/middlewares';
 import { Routes, Sockets } from './entities';
@@ -14,7 +14,7 @@ por eso la hemos definido en esta plantilla
 */
 const port = process.env.PORT;
 const server = http.createServer(app);
-const io = socketIO(server, config);
+const io = new Server(server, config);
 
 Documentation(app);
 Middlewares(app, io);
@@ -22,9 +22,10 @@ Routes(app);
 
 
 ConnectDatabase(() => {
+    console.log(77)
+    io.on('connection', (socket) => {
+        console.log(88)
+        Sockets(io, socket);
+    });
     server.listen(port, () => console.log(`Server listening to http://localhost:${port}`));
-});
-
-io.on('connection', (socket) => {
-    Sockets(io, socket);
 });

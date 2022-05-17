@@ -4,7 +4,7 @@ import UserModel from '../../user/model';
 
 const AuthService = () => ({
     async signIn(providerToken) {
-        const { id, email, email_verified } = await verifyAuthToken(providerToken);
+        const { id, email_verified } = await verifyAuthToken(providerToken);
 
         const [user] = await UserModel.findOrCreate({ auth0Id: id });
 

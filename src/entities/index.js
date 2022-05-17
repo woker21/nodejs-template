@@ -3,7 +3,7 @@ import userSockets from './user/adapters/socket';
 import authRoutes from './auth/adapters/http';
 
 export const Routes = (app) => {
-  userRoutes(app);
+  userRoutes(app, '/user');
   authRoutes(app);
 }
 
