@@ -16,13 +16,14 @@ const port = process.env.PORT;
 const server = http.createServer(app);
 const io = new Server(server, config);
 
-Documentation(app);
-Middlewares(app, io);
-Routes(app);
+
 
 
 ConnectDatabase(() => {
-    console.log(77)
+    Documentation(app);
+    Middlewares(app, io);
+    Routes(app);
+
     io.on('connection', (socket) => {
         console.log(88)
         Sockets(io, socket);
